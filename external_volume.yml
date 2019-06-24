@@ -1,0 +1,7 @@
+version: "3.7"
+
+volumes:
+  int:
+  ext:
+    external:
+      name: my_vol

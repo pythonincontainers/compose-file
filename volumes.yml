@@ -1,0 +1,33 @@
+version: "3.7"
+
+volumes:
+  my_vol:
+  db_vol:
+
+services:
+  app1:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - "my_vol:/data"
+      - "/anon"
+      - "./volumes.yml:/files/config.yml"
+      - "./external_net1:/files/external_net1:ro"
+  app2:
+    image: postgres:11.3
+    volumes:
+      - type: volume
+        source: db_vol
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./
+        target: /app/examples
+        read_only: true
+      - type: tmpfs
+        target: /scratch1
+        tmpfs:
+          size: 100m
+    tmpfs:
+      - /scratch2

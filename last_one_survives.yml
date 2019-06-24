@@ -1,0 +1,19 @@
+version: "3"
+
+networks:
+  net_one:
+
+version: !!str 3.7
+
+volumes:
+  vol_one:
+
+networks:
+  net_two:
+
+volumes:
+  vol_two:
+
+networks:
+  net_three:
+  net_four:

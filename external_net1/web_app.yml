@@ -1,0 +1,14 @@
+version: "3.7"
+
+networks:
+  default:
+    external:
+      name: my_net
+
+services:
+  web:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+  app:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]

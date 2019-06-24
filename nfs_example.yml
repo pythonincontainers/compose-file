@@ -1,0 +1,20 @@
+version: "3.7"
+
+# Docker Engine Host should have "root" access privileges to NFS Share,
+# consider using "no_root_squash" option for NFS Share
+
+# Mount options "nolock,soft" used to prevent Docker Engine freeze
+# in case of NFS Server becomes unavailable
+
+volumes:
+  nfs_vol:
+    driver_opts:
+      type: "nfs"
+      device: ":/opt/share"
+      o: "addr=${NFS_SERVER},nolock,soft,rw,nfsvers=4"
+
+services:
+  proxy:
+    image: nginx
+    volumes:
+      - nfs_vol:/static

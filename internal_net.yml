@@ -1,0 +1,28 @@
+version: "3.7"
+
+networks:
+  frontend:
+  backend:
+    internal: true
+
+services:
+  web:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    ports:
+      - "8080:80"
+    networks:
+      - frontend
+
+  app:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - frontend
+      - backend
+
+  db:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - backend

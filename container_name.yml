@@ -1,0 +1,25 @@
+version: "3.7"
+
+networks:
+  pg_net:
+    name: pg_net
+
+volumes:
+  pg_data:
+
+services:
+  my_db:
+    image: postgres:11.3
+    container_name: postgres
+    hostname: postgres
+    domainname: example.com
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - pg_net
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pgpass
+      - POSTGRES_DB=pgdb

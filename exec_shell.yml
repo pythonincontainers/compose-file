@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  app1:
+    image: pythonincontainers/django-polls:nginx
+    entrypoint: ["python", "manage.py"]
+    command:
+      - runserver
+      - "0:8000"
+  app2:
+    image: pythonincontainers/django-polls:nginx
+    command: uwsgi uwsgi.ini

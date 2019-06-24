@@ -1,0 +1,15 @@
+version: "3.7"
+
+volumes:
+  shared_vol:
+
+services:
+  proxy1:
+    image: nginx:1.17.0
+    volumes:
+      - shared_vol:/static
+
+  proxy2:
+    image: nginx:1.17.0
+    volumes:
+      - shared_vol:/static

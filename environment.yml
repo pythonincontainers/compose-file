@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  flask_app:
+    image: pythonincontainers/flask-hello
+    ports:
+      - 5000:5000
+    command: ["flask", "run"]
+    environment:
+      - "FLASK_APP=hello-flask"
+      - "FLASK_RUN_HOST=0.0.0.0"
+      - "FLASK_RUN_PORT=5000"
+      - "FLASK_DEBUG=true"
+      - "FLASK_ENV"
+
+  postgres:
+    image: postgres:11.3
+    env_file:
+      - postgres.env
+
+  app1:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    working_dir: /code
+    user: guest
+    environment:
+      FLASK_APP: "hello-flask"
+      FLASK_DEBUG: "true"

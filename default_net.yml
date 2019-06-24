@@ -1,0 +1,19 @@
+version: "3.7"
+
+networks:
+  net1:
+
+services:
+  one:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+
+  two:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+
+  three:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - net1

@@ -1,0 +1,51 @@
+version: "3.7"
+
+networks:
+  my_net:
+  big_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/16
+
+services:
+  app1:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      big_net:
+        ipv4_address: 10.1.23.45
+      my_net:
+    ports:
+      - 8080:80
+      - 8443:443/tcp
+    extra_hosts:
+      - "secret-host:192.168.1.179"
+
+  db:
+    image: postgres:11.3
+    networks:
+      big_net:
+        aliases:
+          - postgres
+          - db_server
+        ipv4_address: 10.1.0.10
+    expose:
+      - 5432
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pgpass
+      - POSTGRES_DB=pgdb
+
+  monitor:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    network_mode: "service:db"
+
+  controller:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    network_mode: host

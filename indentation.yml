@@ -1,0 +1,14 @@
+version: !!str 3.7 # +5 points to Wisdom
+
+volumes:
+  shared_vol:
+
+services:
+  proxy1: # Boring, plain indentation with 2 spaces
+    image: nginx:1.17.0
+    volumes:
+      - shared_vol:/static
+
+  # YAML Master Level with no indentation
+  # Image Name:Tag and Volume Name:Mount Point are not YAML mappings!!!
+  proxy2: {image: "nginx:1.17.0", volumes: ["shared_vol:/static"]}
